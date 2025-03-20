@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data dari Google Sheets</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>Data Respons dari Google Sheets</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>Nama</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="data-table"></tbody>
+  </table>
+
+  <script>
+    async function fetchData() {
+      const url = "https://script.google.com/macros/s/AKfycbziaqyhAVqoPk4LEleMFlq44EZ6ZJrT1x1_9jcrjf6_l8CaJQ74pZnr82wv8DBZQZlI/exec"; // Ganti dengan URL Web App dari Google Apps Script
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data");
+        }
+        const data = await response.json();
+
+        let tableContent = "";
+        data.forEach(row => {
+          tableContent += `<tr>
+            <td>${row.Timestamp}</td>
+            <td>${row.Nama}</td>
+            <td>${row.Email}</td>
+          </tr>`;
+        });
+
+        document.getElementById("data-table").innerHTML +	= tableContent;
+      } catch (error) {
+        console.error("Gagal mengambil data:", error);
+      }
+    }
+
+    fetchData();
+  </script>
+</body>
+</html>
