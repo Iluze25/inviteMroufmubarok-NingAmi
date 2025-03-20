@@ -3,24 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data dari Google Sheets</title>
+  <title>Form Input & Tampilan Data</title>
   <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { margin-bottom: 30px; }
+    label { display: block; margin-top: 10px; }
+    input { width: 300px; padding: 8px; margin-top: 5px; }
+    button { margin-top: 15px; padding: 10px 15px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
   </style>
 </head>
 <body>
-  <h2>Data Respons dari Google Sheets</h2>
+  <h2>Input Data</h2>
+  <form id="dataForm">
+    <label for="nama">Nama:</label>
+    <input type="text" id="nama" name="nama" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <button type="submit">Kirim</button>
+  </form>
+
+  <h2>Data yang Tersimpan</h2>
   <table>
     <thead>
       <tr>
@@ -32,11 +39,36 @@
     <tbody id="data-table"></tbody>
   </table>
 
+  <p id="responseMessage"></p>
+
   <script>
-    async function fetchData() {
-      const url = "https://script.google.com/macros/s/AKfycbziaqyhAVqoPk4LEleMFlq44EZ6ZJrT1x1_9jcrjf6_l8CaJQ74pZnr82wv8DBZQZlI/exec"; // Ganti dengan URL Web App dari Google Apps Script
+    const apiURL = "https://script.google.com/macros/s/AKfycbziaqyhAVqoPk4LEleMFlq44EZ6ZJrT1x1_9jcrjf6_l8CaJQ74pZnr82wv8DBZQZlI/exec"; // Ganti dengan URL Web App Google Apps Script
+
+    // Fungsi untuk mengirim data form (POST)
+    document.getElementById("dataForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      
+      const formData = new FormData(this);
+      
       try {
-        const response = await fetch(url);
+        const response = await fetch(apiURL, {
+          method: "POST",
+          body: formData
+        });
+        const result = await response.text();
+        document.getElementById("responseMessage").innerText = result;
+        // Setelah berhasil, refresh data tabel
+        fetchData();
+      } catch (error) {
+        console.error("Gagal mengirim data:", error);
+        document.getElementById("responseMessage").innerText = "Gagal mengirim data.";
+      }
+    });
+
+    // Fungsi untuk mengambil data (GET) dan menampilkannya
+    async function fetchData() {
+      try {
+        const response = await fetch(apiURL);
         if (!response.ok) {
           throw new Error("Gagal mengambil data");
         }
@@ -45,18 +77,19 @@
         let tableContent = "";
         data.forEach(row => {
           tableContent += `<tr>
-            <td>${row.Timestamp}</td>
-            <td>${row.Nama}</td>
-            <td>${row.Email}</td>
+            <td>${row.Timestamp || ""}</td>
+            <td>${row.Nama || ""}</td>
+            <td>${row.Email || ""}</td>
           </tr>`;
         });
 
-        document.getElementById("data-table").innerHTML +	= tableContent;
+        document.getElementById("data-table").innerHTML = tableContent;
       } catch (error) {
         console.error("Gagal mengambil data:", error);
       }
     }
 
+    // Ambil data ketika halaman pertama kali dimuat
     fetchData();
   </script>
 </body>
