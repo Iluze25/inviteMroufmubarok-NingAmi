@@ -26,6 +26,7 @@
     text-align: center;
     min-height: 100vh; /* Memastikan konten memenuhi layar */
     width: 100%;
+
     }
     .photo-container {
             display: flex;
@@ -82,7 +83,97 @@
       position: absolute;
     }
     .pasangan {
+        display: flex; /* Mengatur elemen anak sejajar horizontal */
+        justify-content: center; /* Memusatkan elemen */
+        gap: 2vw; /* Jarak antar elemen berdasarkan viewport */
+        padding: 2vw; /* Padding luar berdasarkan viewport */
+    }
+
+    .pasangan-putra, .pasangan-putri {
+        width: 40vw; /* Lebar masing-masing kotak 40% dari lebar layar */
+        
+        padding: 2vw; /* Padding dalam kotak agar proporsional */
+        color: grey;
+        text-align: center; /* Teks rata tengah */
+        font-size: 1.5vw; /* Ukuran font responsif */
+        
+         transition: background 0.4s ease, transform 0.3s ease;
+
+    }
+    .pasangan-putra:hover, .pasangan-putri:hover {
+        transform: scale(1.05); /* Sedikit membesar saat hover */
+        color: black;
+        background: RGB(240, 240, 240, 0.3); /* Warna latar belakang */
+        border-radius: 1vw; /* Sudut lengkung */
+        box-shadow: 0.5vw 0.5vw 2vw rgba(0, 0, 0, 0.1); /* Efek bayangan */
+        backdrop-filter: blur(8px); /* Efek blur kasar */
+    }
+    /* Container untuk menengahkan tombol */
+    .container-peta {
         display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    /* Styling tombol */
+    .btn-peta {
+        display: inline-block;
+        background: red;
+        color: white;
+        font-size: 1.5em; /* Ukuran teks lebih besar */
+        font-weight: bold;
+        padding: 8x 20px; /* Tambah padding agar lebih besar */
+        border-radius: 10px;
+        text-decoration: none;
+        transition: background 0.3s ease, transform 0.2s ease;
+        width: 50vw; /* Lebar responsif sesuai layar */
+        text-align: center;
+    }
+
+    /* Efek hover */
+    .btn-peta:hover {
+        background: darkred;
+        transform: scale(1.05);
+    }
+
+
+
+    .footer {
+        background: #222; /* Warna gelap */
+        color: white;
+        text-align: center;
+        padding: 15px; /* Padding lebih kecil */
+        font-size: 1px; /* Ukuran huruf lebih kecil */
+        margin-top: auto; /* Menjaga footer tetap di bawah */
+        font-family: arial;
+    }
+
+    .social-links {
+        margin-top: 8px;
+    }
+
+    .social-links a {
+        display: inline-block;
+        margin: 4px;
+        padding: 8px 15px; /* Ukuran tombol sedikit lebih kecil */
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 8px; /* Ukuran teks di tombol lebih kecil */
+        font-weight: bold;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    /* Warna untuk setiap sosial media */
+    .wa { background: #25D366; color: white; } /* WhatsApp hijau */
+    .fb { background: #1877F2; color: white; } /* Facebook biru */
+    .gh { background: #333; color: white; } /* GitHub hitam */
+    .ig { background: #E1306C; color: white; } /* Instagram pink */
+
+    /* Efek hover */
+    .social-links a:hover {
+        transform: scale(1.05);
+        opacity: 0.8;
     }
   </style>
 </head>
@@ -104,10 +195,15 @@
     <p>Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir di hari istimewa kami.</p>
         <p>Tanggal: 10 syawal 1446H</p>
         <div class="countdown" id="countdown"></div>
+    
+    
     <div class="teks-isi">
         <h2>The Wedding Of</h2>
-        <p>Dengan penuh rasa syukur kepada Allah SWT, kami dengan rendah hati mengundang Bapak/Ibu/Saudara/i untuk hadir dalam pernikahan kami</p>
+        <p>Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami. Doa dan kehadiran Anda akan menjadi keberkahan serta kebahagiaan bagi kami dalam memulai kehidupan baru ini.
+            </p>
+        
     </div>
+
     <div class="pasangan">
         <div class="pasangan-putra" style="line-height: 1;">
             <h2>Rouf <br> ------------<br></h2>
@@ -118,7 +214,7 @@
             <br>
             Beralamat di Kab.Tasikmalaya kec.jamanis Des.karangresik Kp.Ciomas RT.01 RW.06
         </div>
-        <div class="pasangan-putra" style="line-height: 1;">
+        <div class="pasangan-putri" style="line-height: 1;">
             <h2>Ning Ami <br> ------------<br></h2>
             
             Putra dari Pasangan <br>
@@ -129,7 +225,35 @@
             Beralamat di Kab.Tasikmalaya kec.jamanis Des.karangresik Kp.Ciomas RT.01 RW.06
         </div>
     </div>
+
+    <div class="teks-isi">
+        <p>"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir."
+        (QS. Ar-Rum: 21)</p>
+
+        <p>Dengan penuh rasa syukur, kami berharap agar pernikahan ini menjadi awal dari perjalanan yang penuh keberkahan, kebahagiaan, dan kasih sayang yang abadi. Semoga Allah SWT senantiasa melimpahkan rahmat dan ridho-Nya kepada kita semua.</p>
+
+        <p>Atas segala doa dan restu yang diberikan, kami mengucapkan terima kasih yang sebesar-besarnya.</p>
+
+        <p>Wassalamu’alaikum Warahmatullahi Wabarakatuh</p>
+
+        <p>Hormat kami, <br>
+        Rouf & Ning Ami</p>
+    </div>
   </div>
+  <div class="container-peta" style="margin: 3vw;">
+        <a href="https://maps.app.goo.gl/5uYJV9Bjrd3ze16p7" class="btn-peta" target="_blank">📍 Lihat Peta</a>
+    </div>
+
+<footer class="footer">
+    <p style="font-size: 10px;">© 2025 | Dibuat oleh Iluze Ear</p>
+    <div class="social-links">
+        <a href="https://api.whatsapp.com/send/?phone=6283136286696&text&type=phone_number&app_absent=0" target="_blank" class="wa">📱 WhatsApp</a>
+        <a href="https://www.facebook.com/IluzeEar.25?locale=id_ID" target="_blank" class="fb">📘 Facebook</a>
+        <a href="https://github.com/Iluze25" target="_blank" class="gh">🐙 GitHub</a>
+        <a href="https://www.instagram.com/iluze_ear/" target="_blank" class="ig">📷 Instagram</a>
+    </div>
+</footer>
+
 
   <script>
         function updateCountdown() {
